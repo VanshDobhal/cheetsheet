@@ -3,123 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programming Cheatsheet</title>
+    <title>DevGuide Pro - Programming Cheatsheet</title>
     
-    <!-- Styles -->
+    <!-- Improved styling with modern fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .header h1 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .controls {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            justify-content: center;
-        }
-
-        select, button {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .content-card {
-            background-color: white;
-            padding: 20px;
-            border-radius: 4px;
-            margin-top: 20px;
-        }
-
-        #download-pdf {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background-color: #2196F3;
-        }
-
-        .loading {
-            padding: 20px;
-            text-align: center;
-            background: #f5f5f5;
-        }
-
-        .error {
-            padding: 20px;
-            color: #721c24;
-            background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
-            border-radius: 4px;
-        }
-
-        .loading-overlay {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 1000;
-        }
-
-        pre {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 4px;
-            overflow-x: auto;
-        }
-
-        code {
-            font-family: 'Courier New', Courier, monospace;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2>CheatHub</h2>
+                <div class="theme-toggle">
+                    <button class="toggle-button" onclick="toggleTheme()">🌙</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
         <div class="header">
             <h1>Programming Cheatsheet</h1>
-            <p>Quick reference guide for programming concepts</p>
+            <p>Your comprehensive guide to programming concepts</p>
         </div>
 
+        <!-- Feature Cards -->
+        <div class="features">
+            <div class="feature-card">
+                <h3>Multiple Languages</h3>
+                <p>Support for 9+ programming languages with detailed examples</p>
+            </div>
+            <div class="feature-card">
+                <h3>Smart Search</h3>
+                <p>Quickly find the code snippets you need</p>
+            </div>
+            <div class="feature-card">
+                <h3>Export Options</h3>
+                <p>Download cheatsheets in PDF or copy code directly</p>
+            </div>
+        </div>
+
+        <!-- Main Controls -->
         <div class="controls">
+            <div style="flex: 1;">
+                <input type="text" class="search-bar" placeholder="Search in cheatsheet..." id="searchInput">
+            </div>
             <select id="language">
                 <option value="Python">Python</option>
                 <option value="JavaScript">JavaScript</option>
@@ -144,14 +74,23 @@
                 <option value="advanced">Advanced Topics</option>
             </select>
 
-            <button onclick="getCheatsheet()">Generate Cheatsheet</button>
+            <button onclick="getCheatsheet()" class="primary-button">Generate Cheatsheet</button>
         </div>
 
+        <!-- View Toggle -->
+        <div class="toggle-group">
+            <button class="toggle-button active" onclick="toggleView('code')">Code View</button>
+            <button class="toggle-button" onclick="toggleView('split')">Split View</button>
+        </div>
+
+        <!-- Content Area -->
         <div class="content-card">
+            <div class="toolbar">
+                <button onclick="copyCode()" class="secondary-button">Copy Code</button>
+                <button id="download-pdf" style="display:none;" onclick="downloadPDF()" class="secondary-button">Download PDF</button>
+            </div>
             <div id="content">Select a language and category to generate a cheatsheet.</div>
         </div>
-
-        <button id="download-pdf" style="display:none;" onclick="downloadPDF()">Download as PDF</button>
     </div>
 
     <!-- Scripts -->
